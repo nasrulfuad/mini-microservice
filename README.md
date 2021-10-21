@@ -116,7 +116,7 @@ Install all dependencies in every services.
 
 ## Usage
 
-To access the api open
+To access the api, open
 
 - GET [get all users]
   - http://localhost:8080/api/accounts

@@ -6,6 +6,13 @@ import { CreateUserDto } from './dto/create-user.dto';
 export class AppController {
   constructor(private readonly service: AppService) {}
 
+  @Get('app')
+  app() {
+    return {
+      APPID: process.env.APPID,
+    };
+  }
+
   @Get()
   all() {
     return this.service.all();

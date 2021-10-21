@@ -13,7 +13,7 @@ async function bootstrap() {
   );
   app.setGlobalPrefix('api');
 
-  await app.listen(8080);
+  await app.listen(process.env.APPID);
 
   logger.verbose(`Main service is running on ${await app.getUrl()}`);
 }

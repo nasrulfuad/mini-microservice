@@ -1,18 +1,55 @@
 version: "3"
 services:
-  main:
-    container_name: main
+  lb:
+    image: haproxy
+    ports:
+      - 8080:8080
+    depends_on:
+      - app1
+      - app2
+      - app3
+    volumes:
+      - ./haproxy:/usr/local/etc/haproxy
+    networks:
+      - awesome-app-network
+
+  app1:
+    container_name: app1
     build:
       context: ./main
       dockerfile: Dockerfile
-    ports:
-      - 8080:8080
+    environment:
+      - APPID=1111
     env_file:
       - docker.env
     depends_on:
       - user
       - profile
       - mail
+    volumes:
+      - ./main:/app
+      - /app/node_modules
+    networks:
+      - awesome-app-network
+
+  app2:
+    image: microservices_app1
+    environment:
+      - APPID=2222
+    env_file:
+      - docker.env
+    volumes:
+      - ./main:/app
+      - /app/node_modules
+    networks:
+      - awesome-app-network
+
+  app3:
+    image: microservices_app1
+    environment:
+      - APPID=3333
+    env_file:
+      - docker.env
     volumes:
       - ./main:/app
       - /app/node_modules
