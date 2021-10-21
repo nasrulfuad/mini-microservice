@@ -6,4 +6,5 @@ export interface IUser {
 export interface IProfile {
   id: number;
   name: string;
+  email: string;
 }

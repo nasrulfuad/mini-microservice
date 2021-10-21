@@ -13,9 +13,6 @@ export class AppController {
 
   @Post()
   store(@Body() dto: CreateUserDto) {
-    return this.service.store({
-      id: new Date().getTime(),
-      ...dto,
-    });
+    return this.service.store(dto);
   }
 }

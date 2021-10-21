@@ -1,0 +1,75 @@
+version: "3"
+services:
+  main:
+    container_name: main
+    build:
+      context: ./main
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    env_file:
+      - docker.env
+    depends_on:
+      - user
+      - profile
+      - mail
+    volumes:
+      - ./main:/app
+      - /app/node_modules
+    networks:
+      - awesome-app-network
+
+  user:
+    container_name: user
+    build:
+      context: ./user
+      dockerfile: Dockerfile
+    env_file:
+      - docker.env
+    depends_on:
+      - nats
+    volumes:
+      - ./user:/app
+      - /app/node_modules
+    networks:
+      - awesome-app-network
+
+  profile:
+    container_name: profile
+    build:
+      context: ./profile
+      dockerfile: Dockerfile
+    env_file:
+      - docker.env
+    depends_on:
+      - nats
+    volumes:
+      - ./profile:/app
+      - /app/node_modules
+    networks:
+      - awesome-app-network
+
+  mail:
+    container_name: mail
+    build:
+      context: ./mail
+      dockerfile: Dockerfile
+    env_file:
+      - docker.env
+    depends_on:
+      - nats
+    volumes:
+      - ./mail:/app
+      - /app/node_modules
+    networks:
+      - awesome-app-network
+
+  nats:
+    container_name: nats
+    image: nats:alpine
+    networks:
+      - awesome-app-network
+
+networks:
+  awesome-app-network:
+    driver: bridge

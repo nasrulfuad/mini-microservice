@@ -5,23 +5,19 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const logger = new Logger('Bootstrap');
-  // const app = await NestFactory.create(AppModule);
-
-  // app.setGlobalPrefix('api');
-
-  // await app.listen(8080);
 
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {
       transport: Transport.NATS,
       options: {
-        servers: ['nats://localhost:4222'],
+        servers: [process.env.NATS_HOST],
       },
     },
   );
 
   await app.listen();
+
   logger.verbose('Profile service is running');
 }
 bootstrap();
