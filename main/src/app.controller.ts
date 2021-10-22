@@ -2,23 +2,23 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { AppService } from './app.service';
 import { CreateUserDto } from './dto/create-user.dto';
 
-@Controller('accounts')
+@Controller()
 export class AppController {
   constructor(private readonly service: AppService) {}
 
-  @Get('app')
+  @Get()
   app() {
     return {
       APPID: process.env.APPID,
     };
   }
 
-  @Get()
+  @Get('accounts')
   all() {
     return this.service.all();
   }
 
-  @Post()
+  @Post('accounts')
   store(@Body() dto: CreateUserDto) {
     return this.service.store(dto);
   }

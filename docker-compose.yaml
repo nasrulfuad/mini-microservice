@@ -36,6 +36,8 @@ services:
     image: microservices_app1
     environment:
       - APPID=2222
+    depends_on:
+      - app1
     env_file:
       - docker.env
     volumes:
@@ -48,6 +50,8 @@ services:
     image: microservices_app1
     environment:
       - APPID=3333
+    depends_on:
+      - app1
     env_file:
       - docker.env
     volumes:
