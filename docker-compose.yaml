@@ -5,16 +5,17 @@ services:
     ports:
       - 8080:8080
     depends_on:
-      - app1
-      - app2
-      - app3
+      - main1
+      - main2
+      - main3
     volumes:
       - ./haproxy:/usr/local/etc/haproxy
     networks:
       - awesome-app-network
 
-  app1:
-    container_name: app1
+  main1:
+    container_name: main1
+    image: mini-micro_main1
     build:
       context: ./main
       dockerfile: Dockerfile
@@ -32,12 +33,13 @@ services:
     networks:
       - awesome-app-network
 
-  app2:
-    image: microservices_app1
+  main2:
+    container_name: main2
+    image: mini-micro_main1
     environment:
       - APPID=2222
     depends_on:
-      - app1
+      - main1
     env_file:
       - docker.env
     volumes:
@@ -46,12 +48,13 @@ services:
     networks:
       - awesome-app-network
 
-  app3:
-    image: microservices_app1
+  main3:
+    container_name: main3
+    image: mini-micro_main1
     environment:
       - APPID=3333
     depends_on:
-      - app1
+      - main1
     env_file:
       - docker.env
     volumes:
@@ -62,6 +65,7 @@ services:
 
   user:
     container_name: user
+    image: mini-micro_user
     build:
       context: ./user
       dockerfile: Dockerfile
@@ -77,6 +81,7 @@ services:
 
   profile:
     container_name: profile
+    image: mini-micro_profile
     build:
       context: ./profile
       dockerfile: Dockerfile
@@ -92,6 +97,7 @@ services:
 
   mail:
     container_name: mail
+    image: mini-micro_mail
     build:
       context: ./mail
       dockerfile: Dockerfile
