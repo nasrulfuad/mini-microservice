@@ -54,7 +54,7 @@
   <img src="https://raw.githubusercontent.com/nasrulfuad/mini-microservice/master/architecture.png" />
 </p>
 
-There are many resource to learn about microservice but in this project I'm trying to make a simple microservice with NestJS, so I hope you can understand how the microservice work, espscially in NestJS
+There are many resource to learn about microservice but in this project I'm trying to make a simple microservice with NestJS, so I hope you can understand how the microservice work, especially in NestJS
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
